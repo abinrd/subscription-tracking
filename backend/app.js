@@ -15,11 +15,19 @@ app.get("/",(req,res)=>{
 })
 
 
-app.listen(PORT,async()=>{
-    await ConnectToDatabase();
-    console.log(`Server running on http://localhost:${PORT}`)
+const startServer = async () => {
+    try {
+        await ConnectToDataBase(); // ✅ Now it's being used
+        app.listen(PORT, () => {
+            console.log(`🚀 Server running on http://localhost:${PORT}`);
+        });
+    } catch (error) {
+        console.error("❌ Database connection failed", error);
+        process.exit(1); // Stop execution if DB fails
+    }
+};
 
-});
+startServer();
 
 
 export default app;
