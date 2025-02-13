@@ -4,7 +4,7 @@ import ConnectToDataBase from './database/mongodb.js'
 import authRouter from './routes/auth.route.js'
 import userRouter from './routes/user.route.js'
 import subscriptionRouter from './routes/subscription.route.js'
-import errorMiddleware from './models/middleware/error.middleware.js'
+import errorMiddleware from './middleware/error.middleware.js'
 
 import cookieParser from 'cookie-parser'
 import express from "express";
