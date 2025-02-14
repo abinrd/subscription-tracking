@@ -28,10 +28,10 @@ session.startTransaction();
 
         res.status(201).json({
             success:true,
-            message:'User have been Created'
+            message:'User have been Created',
             data:{
                 token,
-                newUsers[0] 
+                user:newUsers[0], 
             }
         })
     }catch(error){
