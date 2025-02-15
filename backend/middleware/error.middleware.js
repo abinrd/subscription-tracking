@@ -1,7 +1,7 @@
 const errorMiddleware = (err,req,res,next)=>{
     try{
         let error = {...err};
-        error.messgae = err.message;
+        error.message = err.message;
         console.log(err);
 
         //Mongoose Bad Object
@@ -9,7 +9,7 @@ const errorMiddleware = (err,req,res,next)=>{
         if(err.name ==='CastError'){
             const message='Resource not found';
             error=new Error(message);
-            error.statuscode=404;
+            error.statusCode=404;
         }
 
 
@@ -18,7 +18,7 @@ const errorMiddleware = (err,req,res,next)=>{
         if(err.code === 11000){
           const message ='Duplicate Field Valued enter';
           error=new Error(message);
-          error.statuscode=400
+          error.statusCode=400
         }
 
         //Mongoose validation error
@@ -26,10 +26,10 @@ const errorMiddleware = (err,req,res,next)=>{
         if(err.name ==='ValidationError'){
             const message=Object.values(err.errors).map((error) => error.message).join(", ");
             error=new Error(message)
-            error.statuscode=400
+            error.statusCode=400
         }
 
-         res.status(error.statuscode ||500).json({success:false,error:error.message || 'Server Error'})
+         res.status(error.statusCode ||500).json({success:false,error:error.message || 'Server Error'})
 
 }catch(error){
     next(error)
