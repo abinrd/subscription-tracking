@@ -36,7 +36,7 @@ const subscriptionSchema = new mongoose.Schema(
             }
             
         },
-        endDate: {
+        renewalDate: {
             type: Date,
             validate:{
                 validator:function(value){
@@ -66,18 +66,18 @@ const subscriptionSchema = new mongoose.Schema(
 );
 
 subscriptionSchema.pre('save',function(next){
-    if(!this.endDate){
+    if(!this.renewalDate){
         const renewalPeriod = {
             daily :1,
             weekly:7,
             monthly:30,
             yearly:365,
         };
-        this.endDate=new Date(this.startDate);
-        this.endDate.setDate(this.endDate.getDate()+renewalPeriod[this.frequency])
+        this.renewalDate=new Date(this.startDate);
+        this.renewalDate.setDate(this.renewalDate.getDate()+renewalPeriod[this.frequency])
     }
-    //AutoUpdate the status if endDate has passed
-    if(this.endDate<new Date()){
+    //AutoUpdate the status if renewalDate has passed
+    if(this.renewalDate<new Date()){
         this.status='expired';
     }
     next();
