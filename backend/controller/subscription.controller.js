@@ -23,11 +23,18 @@ export const getUserSubscriptions = async(req,res,next)=>{
         }
         const subscriptions = await Subscription.find({user:req.params.id});
 
-        await workflowClient.trigger({
-            url:`${SERVER_URL}`
+      const {workflowRunId} = await workflowClient.trigger({
+            url:`${SERVER_URL}/api/v1/workflows/subscription/reminder`,
+            body:{
+                subscriptionId:Subscription.id,
+            },
+            headers:{
+                'content-type': 'application/json'
+            },
+            retries :0,
         })
 
-        res.status(200).json({success:true,data:subscriptions})
+        res.status(200).json({success:true,data:{subscriptions,workflowRunId}})
 
     }catch(error){
         next(error);
