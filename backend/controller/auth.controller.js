@@ -13,9 +13,7 @@ export const signUp = async (req, res, next) => {
         const { name, email, password } = req.body;
 
         // ✅ Ensure all fields are provided
-        if (!name || !email || !password) {
-            return res.status(400).json({ success: false, error: "All fields are required" });
-        }
+            
 
         // ✅ Check for existing user
         const existingUser = await User.findOne({ email });
